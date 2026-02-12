@@ -4,7 +4,7 @@ import envPlugin from "./plugins/env.plugin";
 import routes from "./routes";
 import { buildConfig } from "./config/config";
 import errorHandlerPlugin from "./plugins/error-handler.plugin";
-import { createDb } from "./db";
+import dbPlugin from "./plugins/db.plugin";
 
 export function buildApp() {
   const app = Fastify({
@@ -15,19 +15,9 @@ export function buildApp() {
     origin: true,
   });
   app.register(envPlugin);
+  app.register(dbPlugin);
   app.register(routes, { prefix: "/api" });
 
   app.register(errorHandlerPlugin);
-
-  app.after(() => {
-    const config = buildConfig(app);
-    app.decorate("appConfig", config);
-  });
-
-  app.after(() => {
-    const db = createDb(app.appConfig.databaseUrl);
-    app.decorate("db", db);
-  });
-
   return app;
 }

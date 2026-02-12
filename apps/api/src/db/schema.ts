@@ -1,4 +1,13 @@
-import { pgTable, text, timestamp, integer, uuid } from "drizzle-orm/pg-core";
+import {
+  pgTable,
+  text,
+  timestamp,
+  integer,
+  uuid,
+  pgEnum,
+} from "drizzle-orm/pg-core";
+
+export const algorithmEnum = pgEnum("algorithm", ["AES-256-GCM"]);
 
 export const transactions = pgTable("transactions", {
   id: uuid("id").primaryKey(),
@@ -6,14 +15,14 @@ export const transactions = pgTable("transactions", {
   partyId: text("party_id").notNull(),
   createdAt: timestamp("created_at").notNull(),
 
-  payloadNonce: text("payload_nonce").notNull(),
-  payloadCiphertext: text("payload_ct").notNull(),
-  payloadTag: text("payload_tag").notNull(),
+  payload_nonce: text("payload_nonce").notNull(),
+  payload_ct: text("payload_ct").notNull(),
+  payload_tag: text("payload_tag").notNull(),
 
-  dekWrapNonce: text("dek_wrap_nonce").notNull(),
-  dekWrapped: text("dek_wrapped").notNull(),
-  dekWrapTag: text("dek_wrap_tag").notNull(),
+  dek_wrap_nonce: text("dek_wrap_nonce").notNull(),
+  dek_wrapped: text("dek_wrapped").notNull(),
+  dek_wrap_tag: text("dek_wrap_tag").notNull(),
 
-  alg: text("alg").notNull(),
-  mkVersion: integer("mk_version").notNull(),
+  alg: algorithmEnum("alg").notNull(),
+  mk_version: integer("mk_version").notNull(),
 });

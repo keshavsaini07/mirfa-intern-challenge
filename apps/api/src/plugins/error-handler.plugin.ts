@@ -1,6 +1,10 @@
 import fp from "fastify-plugin";
 import { FastifyInstance, FastifyReply, FastifyRequest } from "fastify";
-import { CryptoValidationError, DecryptionError } from "../utils/error";
+import {
+  BadRequestError,
+  CryptoValidationError,
+  DecryptionError,
+} from "../utils/error";
 import { AppError } from "../utils/error/app.error";
 
 export default fp(async function errorHandlerPlugin(fastify: FastifyInstance) {
@@ -9,6 +13,17 @@ export default fp(async function errorHandlerPlugin(fastify: FastifyInstance) {
       fastify.log.error(error);
 
       // Known crypto tampering errors
+      if (error instanceof BadRequestError) {
+        const appError = new AppError(error.message, 400, "BAD_REQUEST_ERROR");
+
+        return reply.status(appError.statusCode).send({
+          error: {
+            code: appError.code,
+            message: appError.message,
+          },
+        });
+      }
+
       if (error instanceof CryptoValidationError) {
         const appError = new AppError(
           error.message,

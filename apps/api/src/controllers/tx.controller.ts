@@ -1,10 +1,12 @@
 import { FastifyReply, FastifyRequest } from "fastify";
-import * as txService from "../services/tx.service";
-import { ViewParams } from "../utils/types";
+import { EncryptBodyType, ViewParams } from "../utils/types";
 
-export async function encrypt(req: FastifyRequest, reply: FastifyReply) {
-  const masterKey = req.server.appConfig.masterKey;
-  const result = await txService.encrypt(req.body, masterKey);
+export async function encrypt(
+  req: FastifyRequest<{ Body: EncryptBodyType }>,
+  reply: FastifyReply,
+) {
+  const { partyId, payload } = req.body;
+  const result = await req.server.txService.encrypt(partyId, payload);
   return reply.send(result);
 }
 
@@ -12,7 +14,7 @@ export async function view(
   req: FastifyRequest<{ Params: ViewParams }>,
   reply: FastifyReply,
 ) {
-  const result = await txService.view(req.params.id);
+  const result = await req.server.txService.view(req.params.id);
   return reply.send(result);
 }
 
@@ -20,7 +22,6 @@ export async function decrypt(
   req: FastifyRequest<{ Params: ViewParams }>,
   reply: FastifyReply,
 ) {
-  const masterKey = req.server.appConfig.masterKey;
-  const result = await txService.decrypt(req.params.id, masterKey);
+  const result = await req.server.txService.decrypt(req.params.id);
   return reply.send(result);
 }

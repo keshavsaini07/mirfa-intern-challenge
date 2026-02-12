@@ -1,22 +1,6 @@
-// import postgres from "postgres";
-// import { drizzle } from "drizzle-orm/postgres-js";
-
-// const connectionString = app.config.DATABASE_URL!;
-
-// if (!connectionString) {
-//   throw new Error("DATABASE_URL not set");
-// }
-
-// // Neon-friendly driver
-// const client = postgres(connectionString, {
-//   ssl: "require",
-//   max: 1, // important for serverless
-// });
-
-// export const db = drizzle(client);
-
 import postgres from "postgres";
 import { drizzle } from "drizzle-orm/postgres-js";
+import * as schema from "./schema";
 
 export function createDb(databaseUrl: string) {
   if (!databaseUrl) {
@@ -28,5 +12,5 @@ export function createDb(databaseUrl: string) {
     max: 1,
   });
 
-  return drizzle(client);
+  return drizzle(client, { schema });
 }
