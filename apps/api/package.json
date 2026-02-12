@@ -13,6 +13,7 @@
   "license": "ISC",
   "packageManager": "pnpm@10.29.1",
   "dependencies": {
+    "@fastify/cors": "^11.2.0",
     "@fastify/env": "^5.0.3",
     "@repo/crypto": "workspace:*",
     "fastify": "^5.7.4",

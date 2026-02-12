@@ -4,8 +4,9 @@ import { useState } from "react";
 import EncryptTab from "../components/tabs/EncryptTab";
 import ViewTab from "../components/tabs/ViewTab";
 import DecryptTab from "../components/tabs/DecryptTab";
+import StatusTab from "../components/tabs/StatusTab";
 
-type Tab = "encrypt" | "view" | "decrypt";
+type Tab = "encrypt" | "view" | "decrypt" | "status";
 
 export default function Home() {
   const [activeTab, setActiveTab] = useState<Tab>("encrypt");
@@ -16,7 +17,7 @@ export default function Home() {
         <h1 className="text-2xl font-semibold">Secure Transaction Mini App</h1>
 
         <div className="flex gap-4">
-          {(["encrypt", "view", "decrypt"] as Tab[]).map((tab) => (
+          {(["encrypt", "view", "decrypt", "status"] as Tab[]).map((tab) => (
             <button
               key={tab}
               onClick={() => setActiveTab(tab)}
@@ -32,6 +33,7 @@ export default function Home() {
         {activeTab === "encrypt" && <EncryptTab />}
         {activeTab === "view" && <ViewTab />}
         {activeTab === "decrypt" && <DecryptTab />}
+        {activeTab === "status" && <StatusTab />}
       </div>
     </div>
   );

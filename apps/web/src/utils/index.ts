@@ -21,3 +21,7 @@ export type TxnSecureRecordType = {
 }
 
 export type TxnDecryptResponseType = Record<string, unknown>;
+
+export type StatusResponseType = {
+  message: string;
+};

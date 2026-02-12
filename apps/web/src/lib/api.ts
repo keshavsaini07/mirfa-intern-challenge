@@ -1,5 +1,6 @@
 import {
   EncryptRequestType,
+  StatusResponseType,
   TxnDecryptResponseType,
   TxnSecureRecordType,
 } from "../utils";
@@ -46,4 +47,8 @@ export async function decryptTx(id: string): Promise<TxnDecryptResponseType> {
   return fetchWrapper(`${BASE_URL}/tx/${id}/decrypt`, {
     method: "POST",
   });
+}
+
+export async function checkStatus(): Promise<StatusResponseType> {
+  return fetchWrapper(`${BASE_URL}/status`);
 }
