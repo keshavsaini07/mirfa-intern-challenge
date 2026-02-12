@@ -1,3 +1,15 @@
+# Node
 node_modules
 apps/api/node_modules
-apps/api/.env
+apps/web/node_modules
+
+# Build outputs
+dist
+.next
+.turbo
+
+# Environment files
+.env
+
+# Logs
+*.log
