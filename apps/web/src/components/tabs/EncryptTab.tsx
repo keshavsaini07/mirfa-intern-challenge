@@ -7,6 +7,7 @@ import JsonViewer from "../ui/JsonViewer";
 import ErrorMessage from "../ui/ErrorMessage";
 import { encryptTx } from "../../lib/api";
 import { TxnSecureRecordType } from "../../utils";
+import ClearButton from "../ui/ClearButton";
 
 const defaultPayload = `{\n  "amount": 100,\n  "currency": "AED"\n}`;
 
@@ -29,8 +30,12 @@ export default function EncryptTab() {
     let parsed;
     try {
       parsed = JSON.parse(payload);
-    } catch {
-      setError("Invalid JSON payload.");
+    } catch (err: unknown) {
+      if (err instanceof Error) {
+        setError(`Invalid JSON: ${err.message}`);
+      } else {
+        setError("Invalid JSON payload.");
+      }
       return;
     }
 
@@ -84,9 +89,12 @@ export default function EncryptTab() {
         />
       </div>
 
-      <PrimaryButton onClick={handleEncrypt} loading={loading}>
-        Encrypt Transaction
-      </PrimaryButton>
+      <div className="flex flex-row gap-2 items-center justify-center">
+        <PrimaryButton onClick={handleEncrypt} loading={loading}>
+          Encrypt Transaction
+        </PrimaryButton>
+        <ClearButton onClick={handleClear} />
+      </div>
 
       {response && (
         <div>

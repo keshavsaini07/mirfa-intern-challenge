@@ -7,6 +7,7 @@ import JsonViewer from "../ui/JsonViewer";
 import ErrorMessage from "../ui/ErrorMessage";
 import { getTx } from "../../lib/api";
 import { TxnSecureRecordType } from "../../utils";
+import ClearButton from "../ui/ClearButton";
 
 export default function ViewTab() {
   const [id, setId] = useState("");
@@ -38,15 +39,25 @@ export default function ViewTab() {
     }
   };
 
+  const handleClear = () => {
+    setError(null);
+    setId("");
+    setResponse(null);
+    setLoading(false);
+  };
+
   return (
     <div className="space-y-4">
       {error && <ErrorMessage message={error} />}
 
       <TextInput value={id} onChange={setId} placeholder="Transaction ID" />
 
-      <PrimaryButton onClick={handleView} loading={loading}>
-        Get Encrypted Transaction
-      </PrimaryButton>
+      <div className="flex flex-row gap-2 items-center justify-center">
+        <PrimaryButton onClick={handleView} loading={loading}>
+          Get Encrypted Transaction
+        </PrimaryButton>
+        <ClearButton onClick={handleClear} />
+      </div>
 
       {response && (
         <div>

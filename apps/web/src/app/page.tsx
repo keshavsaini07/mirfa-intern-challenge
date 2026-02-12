@@ -30,10 +30,18 @@ export default function Home() {
           ))}
         </div>
 
-        {activeTab === "encrypt" && <EncryptTab />}
-        {activeTab === "view" && <ViewTab />}
-        {activeTab === "decrypt" && <DecryptTab />}
-        {activeTab === "status" && <StatusTab />}
+        <div className={activeTab === "encrypt" ? "block" : "hidden"}>
+          <EncryptTab />
+        </div>
+        <div className={activeTab === "view" ? "block" : "hidden"}>
+          <ViewTab />
+        </div>
+        <div className={activeTab === "decrypt" ? "block" : "hidden"}>
+          <DecryptTab />
+        </div>
+        <div className={activeTab === "status" ? "block" : "hidden"}>
+          <StatusTab />
+        </div>
       </div>
     </div>
   );
