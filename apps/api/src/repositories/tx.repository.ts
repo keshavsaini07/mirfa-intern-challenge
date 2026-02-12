@@ -2,6 +2,7 @@ const store = new Map();
 
 export async function save(record: any) {
   store.set(record.id, record);
+  return record;
 }
 
 export async function findById(id: string) {

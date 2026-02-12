@@ -20,6 +20,9 @@ importers:
       '@fastify/env':
         specifier: ^5.0.3
         version: 5.0.3
+      '@repo/crypto':
+        specifier: workspace:*
+        version: link:../../packages/crypto
       fastify:
         specifier: ^5.7.4
         version: 5.7.4
