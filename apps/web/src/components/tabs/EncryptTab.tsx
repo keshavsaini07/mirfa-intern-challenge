@@ -8,11 +8,11 @@ import ErrorMessage from "../ui/ErrorMessage";
 import { encryptTx } from "../../lib/api";
 import { TxnSecureRecordType } from "../../utils";
 
+const defaultPayload = `{\n  "amount": 100,\n  "currency": "AED"\n}`;
+
 export default function EncryptTab() {
   const [partyId, setPartyId] = useState("");
-  const [payload, setPayload] = useState(
-    `{\n  "amount": 100,\n  "currency": "AED"\n}`,
-  );
+  const [payload, setPayload] = useState(defaultPayload);
   const [response, setResponse] = useState<TxnSecureRecordType | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -49,28 +49,51 @@ export default function EncryptTab() {
     }
   };
 
+  const handleClear = () => {
+    setError(null);
+    setPartyId("");
+    setPayload(defaultPayload);
+    setResponse(null);
+    setLoading(false);
+  };
+
   return (
     <div className="space-y-4">
       {error && <ErrorMessage message={error} />}
 
-      <TextInput
-        value={partyId}
-        onChange={setPartyId}
-        placeholder="party_123"
-      />
+      <div>
+        <label className="block text-sm font-medium text-gray-700 mb-1">
+          Party ID
+        </label>
+        <TextInput
+          value={partyId}
+          onChange={setPartyId}
+          placeholder="party_123"
+        />
+      </div>
 
-      <textarea
-        rows={6}
-        value={payload}
-        onChange={(e) => setPayload(e.target.value)}
-        className="w-full border px-3 py-2 rounded-lg font-mono text-sm"
-      />
+      <div>
+        <label className="block text-sm font-medium text-gray-700 mb-1">
+          JSON Payload
+        </label>
+        <textarea
+          rows={6}
+          value={payload}
+          onChange={(e) => setPayload(e.target.value)}
+          className="w-full border px-3 py-2 rounded-lg font-mono text-sm"
+        />
+      </div>
 
       <PrimaryButton onClick={handleEncrypt} loading={loading}>
         Encrypt Transaction
       </PrimaryButton>
 
-      {response && <JsonViewer data={response} />}
+      {response && (
+        <div>
+          <span>Response:</span>
+          <JsonViewer data={response} />
+        </div>
+      )}
     </div>
   );
 }

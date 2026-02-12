@@ -46,6 +46,7 @@ export async function getTx(id: string): Promise<TxnSecureRecordType> {
 export async function decryptTx(id: string): Promise<TxnDecryptResponseType> {
   return fetchWrapper(`${BASE_URL}/tx/${id}/decrypt`, {
     method: "POST",
+    body: JSON.stringify({}),
   });
 }
 

@@ -48,7 +48,12 @@ export default function DecryptTab() {
         Decrypt Transaction
       </PrimaryButton>
 
-      {response && <JsonViewer data={response} />}
+      {response && (
+        <div>
+          <span>Decrypted Payload:</span>
+          <JsonViewer data={response} />
+        </div>
+      )}
     </div>
   );
 }

@@ -1,7 +1,6 @@
 import { encryptPayload, decryptPayload } from "@repo/crypto";
 import * as txRepository from "../repositories/tx.repository";
-
-export async function encrypt(data: any) {
+export async function encrypt(data: any, masterKey: Buffer) {
   const record = encryptPayload(data.partyId, data.payload);
   await txRepository.save(record);
   return record;

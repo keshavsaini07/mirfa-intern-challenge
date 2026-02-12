@@ -48,7 +48,12 @@ export default function ViewTab() {
         Get Encrypted Transaction
       </PrimaryButton>
 
-      {response && <JsonViewer data={response} />}
+      {response && (
+        <div>
+          <span>Encrypted Payload:</span>
+          <JsonViewer data={response} />
+        </div>
+      )}
     </div>
   );
 }

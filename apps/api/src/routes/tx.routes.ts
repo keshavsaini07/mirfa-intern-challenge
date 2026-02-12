@@ -3,4 +3,6 @@ import * as txController from "../controllers/tx.controller";
 
 export default async function txRoutes(fastify: FastifyInstance) {
   fastify.post("/encrypt", txController.encrypt);
+  fastify.get("/:id", txController.view);
+  fastify.post("/:id/decrypt", txController.decrypt);
 }
