@@ -5,7 +5,7 @@ import fastifyEnv from "@fastify/env";
 export default fp(async (fastify) => {
   const schema = {
     type: "object",
-    required: ["PORT", "MASTER_KEY"],
+    required: ["PORT", "MASTER_KEY", "DATABASE_URL"],
     properties: {
       PORT: {
         type: "number",
@@ -14,6 +14,9 @@ export default fp(async (fastify) => {
       MASTER_KEY: {
         type: "string",
         minLength: 64,
+      },
+      DATABASE_URL: {
+        type: "string",
       },
     },
   };

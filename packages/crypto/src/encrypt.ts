@@ -1,13 +1,17 @@
 import crypto from "crypto";
 import { TxnSecureRecordType } from "./types";
-import { generateDek, getMasterKey, generateId } from "./utils";
+import { generateDek, generateId } from "./utils";
 
-export function encryptPayload(partyId: string, payload: any): TxnSecureRecordType {
+export function encryptPayload(
+  masterKey: Buffer,
+  partyId: string,
+  payload: Record<string, unknown>,
+): TxnSecureRecordType {
   // generate DEK
   const dek = generateDek();
 
   // get MK from env
-  const masterKey = getMasterKey();
+  //   const masterKey = getMasterKey();
 
   // Encrypt payload with DEK
   const iv = crypto.randomBytes(12);

@@ -1,9 +1,6 @@
 import { FastifyReply, FastifyRequest } from "fastify";
 import * as txService from "../services/tx.service";
-
-type ViewParams = {
-  id: string;
-};
+import { ViewParams } from "../utils/types";
 
 export async function encrypt(req: FastifyRequest, reply: FastifyReply) {
   const masterKey = req.server.appConfig.masterKey;
@@ -23,6 +20,7 @@ export async function decrypt(
   req: FastifyRequest<{ Params: ViewParams }>,
   reply: FastifyReply,
 ) {
-  const result = await txService.decrypt(req.params.id);
+  const masterKey = req.server.appConfig.masterKey;
+  const result = await txService.decrypt(req.params.id, masterKey);
   return reply.send(result);
 }

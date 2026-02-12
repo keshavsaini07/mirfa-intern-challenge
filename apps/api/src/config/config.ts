@@ -3,13 +3,11 @@ import { FastifyInstance } from "fastify";
 export type AppConfig = {
   masterKey: Buffer;
   port: number;
+  databaseUrl: string;
 };
 
 export function buildConfig(fastify: FastifyInstance): AppConfig {
-  const masterKey = Buffer.from(
-    fastify.config.MASTER_KEY,
-    "hex"
-  );
+  const masterKey = Buffer.from(fastify.config.MASTER_KEY, "hex");
 
   if (masterKey.length !== 32) {
     throw new Error("MASTER_KEY must be 32 bytes");
@@ -17,6 +15,7 @@ export function buildConfig(fastify: FastifyInstance): AppConfig {
 
   return {
     masterKey,
-    port: fastify.config.PORT
+    port: fastify.config.PORT,
+    databaseUrl: fastify.config.DATABASE_URL,
   };
 }

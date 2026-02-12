@@ -16,11 +16,15 @@
     "@fastify/cors": "^11.2.0",
     "@fastify/env": "^5.0.3",
     "@repo/crypto": "workspace:*",
+    "drizzle-orm": "^0.45.1",
     "fastify": "^5.7.4",
-    "fastify-plugin": "^5.1.0"
+    "fastify-plugin": "^5.1.0",
+    "postgres": "^3.4.8"
   },
   "devDependencies": {
     "@types/node": "^25.2.3",
+    "dotenv": "^17.2.4",
+    "drizzle-kit": "^0.31.9",
     "ts-node-dev": "^2.0.0",
     "typescript": "^5.9.3"
   }
