@@ -6,6 +6,7 @@
   "scripts": {
     "dev": "turbo run dev",
     "build": "turbo run build",
+    "test": "turbo run test",
     "dev:web": "pnpm --filter web dev",
     "dev:api": "pnpm --filter api dev"
   },
