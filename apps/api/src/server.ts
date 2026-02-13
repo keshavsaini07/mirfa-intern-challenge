@@ -1,19 +1,8 @@
 import { buildApp } from "./app";
 
-const start = async () => {
-  const app = buildApp();
+const app = buildApp();
 
-  try {
-    await app.ready();
-    
-    const port = app.config.PORT;
-
-    await app.listen({ port });
-    console.log(`Server running on port: `, port);
-  } catch (err) {
-    app.log.error(err);
-    process.exit(1);
-  }
-};
-
-start();
+export default async function handler(req: any, res: any) {
+  await app.ready();
+  app.server.emit("request", req, res);
+}
